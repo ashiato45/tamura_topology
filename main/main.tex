@@ -1,0 +1,141 @@
+\documentclass[9pt]{ltjsarticle}
+\DeclareSymbolFont{bbold}{U}{bbold}{m}{n}
+\DeclareSymbolFontAlphabet{\mathbbold}{bbold}
+\newcommand{\bbold}{\mathbbold}
+\usepackage{xcolor}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{enumitem}
+\usepackage{ashiato45}
+%\usepackage{okumacro}
+\def\MARU#1{\textcircled{\scriptsize #1}}
+\usepackage{graphicx}
+\usepackage{ulem}
+\usepackage{framed}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{here}
+%\usepackage[twoside]{geometry}
+\usepackage{mytheorems}
+\usepackage{tikz}
+\usepackage{ascmac}
+\usepackage{stmaryrd}
+\usetikzlibrary{cd}
+\title{Tamura - Topology}
+\author{ashiato45 take notes}
+% \date{June 15, 2016}
+
+\renewcommand{\bf}{\mathbf}
+
+
+\begin{document}
+\maketitle
+\setcounter{section}{4}
+\section{Application and example of homology}
+\subsection{$\ker \psi = \Z$について}
+$C_q(S^m\times \set{\pm 1})$について議論するために、これを構成する単体に
+名前をつける。($I$との直積を取って柱を作ったときにやったと思います。)
+$S^m$の単体$x$に対応する$S^m\times \set{\pm 1}$の単体を
+$(x,\pm 1)$とよぶことにする。
+一応の性質として、
+\begin{itemize}
+ \item 任意の$S^m\times \set{\pm 1}$の単体$x'$について、
+       $S^m$の単体$x\in S^m$と$i\in \set{\pm 1}$が存在して、$y=(x,i)$と
+       なる。
+ \item 任意の$S^m$の単体$x,y$について、$(x,+1)\neq (y,-1)$。
+\end{itemize}
+がある。
+
+また、$a=\sum_{x\colon S^mの単体}c_q \cdot x \in C_q(S^m\times \set{+1})$
+について、
+\begin{align}
+ (a,+1) \defeq \sum_{x}c_q \cdot(x,+1)
+\end{align}
+と書くことにする。(単体の自由加群をそのまま$S^m\times \set{+1}$に持って
+いった。)
+
+$S^m\times \set{\pm 1}$のチェインが
+\begin{align}
+ \dots
+ \xrightarrow{\pd'_{q+1}}
+ C_q(S^m\times \set{\pm 1})
+ \xrightarrow{\pd'_{q}}
+ \dots
+\end{align}
+だとする。(いままでのは$\pd_*$で今回は$\pd'_*$。)
+
+$\ker \pd'_q$のことを調べる。$a\in C_q(S^m\times), b\in
+C_q(S^m)$とする。$C(S^m\times \set{\pm 1})$の任意の元は
+$(a,+1)+(b,-1)$で代表できるので、これに$\pd'_q$をあてて0になったときを調
+べる。
+\begin{align}
+ &
+ \pd'_q((a,+1)+(b,-1)) = 0\\
+ \desciff{S^m\times \set{\pm1}のつくりかた}&
+ (\pd_q a, +1) + (\pd_q b, -1) = 0\\
+ \desciff{$(x,+1)\neq (y,-1)$}&
+ (\pd_q a, +1) = (\pd_q b, -1) = 0.
+\end{align}
+とする。よって、
+\begin{align}
+ \ker \pd'_q &= \set{(a,+1)+(b,-1) \in C_q(S^m\times \set{\pm 1}); 
+ a,b\in \ker \pd_q}\\
+ & =
+\set{(a,+1); a\in \ker \pd_q} \oplus
+ \set{(b,-1); b\in \ker \pd_q}.
+\end{align}
+よって、
+\begin{align}
+ H_q(S^m\times \set{\pm 1})
+ &\desceq{定義}
+ \ker \pd'_q / \Image \pd'_q\\
+ &\desceq{さっきの}
+\set{(a,+1); a\in \ker \pd_q}/ \Image \pd'_q \oplus
+ \set{(b,-1); b\in \ker \pd_q}/ \Image \pd'_q\\
+ &\simeq
+ H_q(S^m)\oplus H_q(S^m)\\
+ & \simeq
+ \Z^2.
+\end{align}
+となっている。また、この代表元は$S^m\times \set{+1}$側からの
+$[(a,+1)]$と$S^m\times \set{-1}$側からの$[(b,-1)]$のペア
+$([(a,+1)],[(b,-1)])$とあらわせる。
+
+これで$\psi_q$を調べる記号が整備できたのでやる。
+$i\colon S^m\times \set{+1} \to S^m\times I$は複体の準同型で、
+埋め込み(つまり、$i((a,+1))=(a,+1)$と定義されている。)
+$j\colon S^m\times \set{-1}\to S^m\times I$も同様。
+
+ここから、ホモロジー群の間の準同型
+\begin{align}
+ i_q \colon H_q(S^m\times \set{\pm 1}) \to H_q(H^m\times D_+^1)\simeq H_q(S^m\times I),\quad
+ [(a,+1)] + [(b,-1)] \mapsto [(a,+1)]  + [(b,-1)]
+\end{align}
+と
+\begin{align}
+ j_q \colon H_q(S^m\times \set{\pm1}) \to H_q(H^m\times D_-^1)\simeq H_q(S^m\times I),\quad
+ [(a,+1)] + [(b,-1)] \mapsto [(a,+1)]  + [(b,-1)]
+\end{align}
+が誘導される。このもとで、$\psi_q$は$\psi_q=(i_q,-j_q)$と定義されていた。
+
+$\psi_q$の核を調べる。$a,b\in C_q(S^m)$とする。
+\begin{align}
+ &(i_q,-j_q)([(a,+1)] + [(b,-1)]) = 0\\
+\iff& ([(a,+1)] + [(b,-1)], -[(a,+1)] - [(b,-1)]) = 0\\
+ \iff &
+ [(a,+1)] +[(b,-1)] = 0.
+\end{align}
+よって、
+\begin{align}
+ \ker \psi_q
+ &=
+\set{([(a,+1)],[(b,-1)])\in H_q(S^m\times \set{\pm 1});
+ a,b\in C_q(S^m), [(a,+1)]+[(b,-1)] = 0}\\
+ &=
+\set{([(a,+1)],[-(a,+1)]); a\in C_q(S^m)}\\
+ &\simeq 
+\Z.
+\end{align}
+
+
+
+\end{document}
